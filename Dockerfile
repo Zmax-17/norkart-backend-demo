@@ -1,26 +1,30 @@
+# =========================
 # Build stage
+# =========================
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /source
 
 # Copy everything
 COPY . .
 
-# Restore
+# Restore dependencies
 RUN dotnet restore
 
-# Publish
+# Publish the app
 RUN dotnet publish -c Release -o /app
 
+# =========================
 # Runtime stage
+# =========================
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
-# Render exposes port 10000
-ENV ASPNETCORE_URLS=http://+:10000
-EXPOSE 10000
+# Use the PORT environment variable from Render
+ENV ASPNETCORE_URLS=http://+:${PORT:-10000}
+EXPOSE ${PORT:-10000}
 
-# Copy build output
+# Copy published app from build stage
 COPY --from=build /app .
 
-# Start the app
+# Start the application
 ENTRYPOINT ["dotnet", "NorkartDemo.dll"]
