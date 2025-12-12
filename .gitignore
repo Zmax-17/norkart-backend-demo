@@ -1,0 +1,30 @@
+# Visual Studio / Rider
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# .NET build output
+bin/
+obj/
+*.nupkg
+*.snupkg
+
+# Logs and temp files
+*.log
+*.tmp
+*.cache
+*.http
+*.rest
+
+# Publish and release
+publish/
+artifacts/
+*.pubxml
+
+# NuGet packages
+packages/
+
+# VS Code
+.vscode/
