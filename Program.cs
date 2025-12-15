@@ -58,6 +58,22 @@ app.MapPost("/api/offices", (NorkartOffice office) =>
 })
 .Accepts<NorkartOffice>("application/json");
 
+app.MapPost("/api/reset", () =>
+{
+    if (norkartOffices.Count == 0)
+    {
+        norkartOffices.AddRange([
+            new(1, "Skøyen", "Hovedkontor", "Hoffsveien 4, 0275 Oslo", "Hoffsveien 4, 0275 Oslo", 59.9254, 10.6747),
+        new(2, "Trondheim", "Distriktskontor", "Holtermanns veg 7, Blokk C, 5. etasje, 7030 Trondheim", "Hoffsveien 4, 0275 Oslo", 63.4142, 10.3979),
+        new(3, "Lillehammer", "Distriktskontor", "Fåberggt. 155, 2615 Lillehammer", "Fåberggt. 155, 2615 Lillehammer", 61.1237, 10.4572),
+        new(4, "Bergen", "Distriktskontor", "Inger Bang Lunds vei 12, 5059 Bergen", "Inger Bang Lunds vei 12, 5059 Bergen", 60.3727, 5.3414),
+    ]);
+        return Results.Ok(new { message = "Data reset to original!" });
+    }
+
+    return Results.Ok(new { message = "The list is already full" });
+});
+
 app.MapDelete("/api/offices/{id:int}", (int id) =>
 {
     var item = norkartOffices.Find(e => e.Id == id);
