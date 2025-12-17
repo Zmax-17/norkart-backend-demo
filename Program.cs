@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
 
         // In the future, a front-end domain may be added
-        policy.WithOrigins("https://norkart-frontend.netlify.app")
+        policy.WithOrigins("https://norkart-frontend-demo.netlify.app")
               .AllowAnyHeader().AllowAnyMethod();
     });
 });
